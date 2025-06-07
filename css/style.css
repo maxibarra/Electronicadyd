@@ -356,7 +356,13 @@ footer a:hover {
 
   iframe {
     width: 100%;
-    height: 400px; /* Ajusta la altura del iframe en pantallas pequeñas */
+    height: 300px; /* Ajusta la altura del iframe en pantallas pequeñas */
+  }
+  
+    .social-icon {
+    display: inline-block;
+    font-size: 1.4rem;
+    margin: 0 10px;
   }
   
 }
@@ -395,6 +401,9 @@ footer a:hover {
     height: 40px;
     font-size: 20px;
   }
+}
+@media (max-width: 767px) {
+
 }
 /* Estilos para el botón de desplazamiento hacia arriba en pantallas grandes */
 @media (min-width: 769px) {
