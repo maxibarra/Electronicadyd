@@ -1,0 +1,44 @@
+  <?php
+            $nombre = $_GET['nombre'] ?? '';
+            $email = $_GET['email'] ?? '';
+            $asunto = $_GET['asunto'] ?? '';
+            $mensaje = $_GET['mensaje'] ?? '';
+            ?>
+            <div class="col-md-7">
+              <?php if (isset($_GET['enviado'])): ?>
+              <?php if ($_GET['enviado'] === 'ok'): ?>
+              <div class="alert alert-success alert-dismissible fade show"
+                role="alert">
+                ¡Gracias! Tu mensaje fue enviado correctamente. Te responderemos
+                a la brevedad.
+                <button type="button" class="btn-close" data-bs-dismiss="alert"
+                  aria-label="Cerrar"></button>
+              </div>
+              <?php elseif ($_GET['enviado'] === 'error'): ?>
+              <div class="alert alert-danger alert-dismissible fade show"
+                role="alert">
+                Lo sentimos, hubo un problema al enviar tu mensaje. Intentá de
+                nuevo más tarde.
+                <button type="button" class="btn-close" data-bs-dismiss="alert"
+                  aria-label="Cerrar"></button>
+              </div>
+              <?php endif; ?>
+              <?php endif; ?>
+              <form action="mailto:maxi.8379@gmail.com" method="POST">
+                <input type="text" name="nombre" class="form-control mb-3"
+                  placeholder="Tu nombre"
+                  value="<?= htmlspecialchars($nombre) ?>" required />
+                <input type="email" name="email" class="form-control mb-3"
+                  placeholder="Tu email" value="<?= htmlspecialchars($email) ?>"
+                  required />
+                <input type="text" name="asunto" class="form-control mb-3"
+                  placeholder="Asunto" value="<?= htmlspecialchars($asunto) ?>"
+                  required />
+                <textarea name="mensaje" class="form-control mb-3"
+                  placeholder="Tu mensaje" rows="5"
+                  required> <?= htmlspecialchars($mensaje) ?></textarea>
+                <button type="submit"
+                  class="btn btn-primary w-100">Enviar</button>
+              </form>
+
+            </div>

@@ -1,0 +1,35 @@
+<?php
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Sanitización de entradas
+    $nombre = htmlspecialchars(trim($_POST["nombre"]));
+    $email = filter_var(trim($_POST["email"]), FILTER_SANITIZE_EMAIL);
+    $asunto = htmlspecialchars(trim($_POST["asunto"]));
+    $mensaje = htmlspecialchars(trim($_POST["mensaje"]));
+
+    // Preparación del email
+    $destino = "maxi.8379@gmail.com"; // ⚠️ Reemplazá por tu correo real
+    $asuntoTexto = "Nuevo mensaje de contacto desde tu sitio web: $asunto";
+    $contenido = "Nombre: $nombre\nEmail: $email\nMensaje:\n$mensaje";
+    $headers = "From: $email";
+
+    if (mail($destino, $asuntoTexto, $contenido, $headers)) {
+        // Éxito: redirecciona sin datos, pero se queda en la sección contacto
+        header("Location: index.php?enviado=ok#contacto");
+        exit;
+    } else {
+        // Falla: redirecciona con datos y mantiene la posición
+        $params = http_build_query([
+            'enviado' => 'error',
+            'nombre' => $nombre,
+            'email' => $email,
+            'asunto' => $asunto,
+            'mensaje' => $mensaje
+        ]);
+        header("Location: index.php?$params#contacto");
+        exit;
+    }
+} else {
+    // Acceso no permitido
+    header("Location: index.php");
+    exit;
+}
